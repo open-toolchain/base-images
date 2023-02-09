@@ -136,6 +136,10 @@ spec:
       value: "./devtools"
     - name: dockerfile
       value: "Dockerfile"
+    - name: path-to-context
+      value: "./devtools"
+    - name: path-to-hadolint-config
+      value: "./devtools/.hadolint.yaml"
 ---
 apiVersion: tekton.dev/v1beta1
 kind: EventListener

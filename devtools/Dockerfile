@@ -17,15 +17,17 @@ RUN apt-get -q update \
     && apt-get -q update \
     && apt-get upgrade -y \
     && apt-get -q clean \
-    && apt-get -q install -y sudo apt-transport-https zip unzip git dnsutils curl gettext wget ca-certificates openssl locales make \
-    && curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash \
+    && apt-get -q install -y apt-transport-https zip unzip git dnsutils curl gettext wget ca-certificates openssl locales make \
+    && wget --quiet -O script.sh https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh \
+    && bash script.sh \
+    && rm -f script.sh \
     && apt-get -q install git-lfs \
     && git lfs install \
     && apt-get -q clean \
     && rm -rf /var/lib/apt/lists \
     && locale-gen en_US.UTF-8 \
     && apt-get remove -y software-properties-common \
-    && apt autoremove -y
+    && apt-get autoremove -y
 
 ENV LANG=en_US.UTF-8
 
@@ -43,14 +45,14 @@ RUN wget --quiet --output-document=/usr/local/bin/kubectl https://storage.google
 # Install Helm3
 ARG HELM3_VERSION='v3.11.0'
 RUN mkdir -p /tmp/helm_install \
-    && curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh \
+    && wget --quiet https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -O get_helm.sh \
     && chmod 700 get_helm.sh \
     && ./get_helm.sh --version ${HELM3_VERSION} \
     && rm -rf /tmp/helm*
 
 # Install JQ 1.x
 ARG JQ_VERSION='1.6'
-RUN wget --no-check-certificate https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -O /tmp/jq-linux64 \
+RUN wget --quiet --no-check-certificate https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 -O /tmp/jq-linux64 \
     && cp /tmp/jq-linux64 /usr/bin/jq \
     && chmod +x /usr/bin/jq \
     && rm -f /tmp/jq-linux64
@@ -75,17 +77,19 @@ RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.489 \
 RUN ln -s /usr/local/ibmcloud/bin/ibmcloud /usr/local/bin/ic
 
 # Install OpenShift CLI
-RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz \
+RUN wget --quiet -O /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable/openshift-client-linux.tar.gz \
     && tar xzvf /tmp/oc.tar.gz -C /tmp/ \
     && mv /tmp/oc /usr/local/bin/ \
     && rm -f /tmp/oc.tar.gz /tmp/oc /tmp/kubectl
 
 # terraform
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -qq && apt-get -y -qq install gpg lsb-release \
-    && wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    && wget --quiet -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor > /usr/share/keyrings/hashicorp-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" > /etc/apt/sources.list.d/hashicorp.list \
     && apt-get update -qq && apt-get install -y -qq terraform \
-    && rm -f /etc/apt/sources.list.d/hashicorp.list
+    && rm -f /etc/apt/sources.list.d/hashicorp.list \
+    && rm -rf /var/lib/apt/lists
 
 # Install yq v4.x
 ENV YQ4_VERSION=v4.30.8
@@ -95,11 +99,15 @@ RUN wget --quiet -O yq4_linux_amd64 https://github.com/mikefarah/yq/releases/dow
 
 # Install buildctl
 ENV BUILDKIT_VERSION=v0.11.2
-RUN curl -fsSL https://github.com/moby/buildkit/releases/download/${BUILDKIT_VERSION}/buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz | tar zxvf - --strip-components 1 -C /usr/bin bin/buildctl
+RUN wget --quiet -O buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz https://github.com/moby/buildkit/releases/download/${BUILDKIT_VERSION}/buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz \
+    && tar zxvf buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz --strip-components 1 -C /usr/bin bin/buildctl \
+    && rm -f buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz
 
 # install docker CLI
 ENV DOCKER_VERSION=20.10.23
-RUN curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz | tar zxvf - --strip-components 1 -C /usr/bin docker/docker
+RUN wget --quiet -O docker-${DOCKER_VERSION}.tgz https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz \
+    && tar zxvf docker-${DOCKER_VERSION}.tgz --strip-components 1 -C /usr/bin docker/docker \
+    && rm -f docker-${DOCKER_VERSION}.tgz    
 
 ENV TMPDIR=/tmp
 ENV HOME=/root

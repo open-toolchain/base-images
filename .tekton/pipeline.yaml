@@ -61,6 +61,8 @@ spec:
       default: "0"
     - name: commons-hosted-region
       default: "https://raw.githubusercontent.com/open-toolchain/commons/master"
+    - name: path-to-hadolint-config
+      default: ""
   workspaces:
     - name: pipeline-ws
   tasks:
@@ -137,6 +139,8 @@ spec:
           value: $(params.fail-on-lint-errors)
         - name: pipeline-debug
           value: $(params.pipeline-debug)
+        - name: path-to-hadolint-config
+          value: $(params.path-to-hadolint-config)
       workspaces:
         - name: workspace
           workspace: pipeline-ws
