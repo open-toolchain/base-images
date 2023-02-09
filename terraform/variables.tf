@@ -127,5 +127,5 @@ variable "tekton_tasks_catalog_repo" {
 variable "definitions_branch" {
   type        = string
   description = "The name of the default branch in the `tekton_tasks_catalog_repo` repository."
-  default     = "main"
+  default     = "master"
 }
