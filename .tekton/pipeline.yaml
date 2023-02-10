@@ -96,36 +96,6 @@ spec:
       workspaces:
         - name: output
           workspace: pipeline-ws
-    - name: extract-doi-enablement
-      taskRef:
-        name: toolchain-extract-value
-      params:
-        # count the number of service in the toolchain that are DevopsInsights
-        - name: expression
-          value: 'reduce .services[] as $service (0; if $service.service_id=="draservicebroker" then .+1 else . end)'
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
-    - name: publish-doi-buildrecord
-      runAfter: [extract-doi-enablement]
-      when:
-        - input: $(tasks.extract-doi-enablement.results.extracted-value)
-          operator: in
-          values: ["1"]
-      taskRef:
-        name: doi-publish-buildrecord
-      params:
-        - name: ibmcloud-api
-          value: $(params.ibmcloud-api)
-        - name: toolchain-apikey-secret-key
-          value: "toolchain-apikey"
-        - name: app-name
-          value: $(params.app-name)
-        - name: git-repository
-          value: $(tasks.git-clone.results.git-repository)
-        - name: git-branch
-          value: $(tasks.git-clone.results.git-branch)
-        - name: git-commit
-          value: $(tasks.git-clone.results.git-commit)
     - name: docker-lint
       runAfter: [git-clone]
       taskRef:
@@ -214,32 +184,6 @@ spec:
           value: $(tasks.containerize.results.image-repository)
         - name: image-digest
           value: $(tasks.containerize.results.image-digest)
-      workspaces:
-        - name: artifacts
-          workspace: pipeline-ws
-    - name: publish-doi-va-scan-record
-      runAfter: [vulnerability-advisor]
-      when:
-        - input: $(tasks.extract-doi-enablement.results.extracted-value)
-          operator: in
-          values: ["1"]
-      taskRef:
-        name: doi-publish-testrecord
-      params:
-        - name: ibmcloud-api
-          value: $(params.ibmcloud-api)
-        - name: toolchain-apikey-secret-key
-          value: "toolchain-apikey"
-        - name: build-number
-          value: "$(tasks.publish-doi-buildrecord.results.build-number)"
-        - name: app-name
-          value: $(params.app-name)
-        - name: file-locations
-          value: $(tasks.vulnerability-advisor.results.scan-report-file)
-        - name: test-types
-          value: vulnerabilityadvisor
-        - name: pipeline-debug
-          value: $(params.pipeline-debug)
       workspaces:
         - name: artifacts
           workspace: pipeline-ws
