@@ -1,5 +1,6 @@
 resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo" {
   toolchain_id = var.toolchain_id
+  name         = "repo"
   initialization {
     owner_id = var.app_repo_github_user
     git_id = "github"
@@ -20,6 +21,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo" {
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
   toolchain_id = var.toolchain_id
+  name         = "pipeline-repo"
   initialization {
     owner_id = var.pipeline_repo_github_user
     git_id = "github"
@@ -40,6 +42,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
 
 resource "ibm_cd_toolchain_tool_githubconsolidated" "tekton_tasks_catalog_repo" {
   toolchain_id = var.toolchain_id
+  name         = "tasks-repo"
   initialization {
     owner_id = var.tekton_tasks_catalog_repo_github_user
     git_id = "github"
