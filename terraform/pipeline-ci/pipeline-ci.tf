@@ -113,23 +113,6 @@ resource "ibm_cd_tekton_pipeline_definition" "ci_utils_task_def" {
   }
 }
 
-resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_scm_trigger" {
-  pipeline_id     = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
-  type            = var.ci_pipeline_scm_trigger_type
-  name            = var.ci_pipeline_scm_trigger_name
-  event_listener  = var.ci_pipeline_scm_trigger_listener_name
-  source {
-    type = "git"
-    properties {
-      url     = var.app_repo
-      branch  = var.app_repo_branch
-    }
-  }
-  events              = ["push"]
-  enabled             = var.ci_pipeline_scm_trigger_enabled
-  max_concurrent_runs = var.ci_pipeline_max_concurrent_runs
-}
-
 resource "ibm_cd_tekton_pipeline_trigger" "ci_pipeline_manual_trigger" {
   pipeline_id     = ibm_cd_tekton_pipeline.ci_pipeline_instance.pipeline_id
   type            = "manual"

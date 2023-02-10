@@ -33,6 +33,8 @@ spec:
       default: "."
     - name: dockerfile
       default: "Dockerfile"
+    - name: path-to-hadolint-config
+      default: ""
     - name: build-args
       description: ibmcloud cr build argument list in the format 'KEY=VALUE' with a key-value pair per line.
       default: ""
@@ -101,6 +103,8 @@ spec:
             value: $(params.path-to-dockerfile)
           - name: dockerfile
             value: $(params.dockerfile)
+          - name: path-to-hadolint-config
+            value: $(params.path-to-hadolint-config)
           - name: build-args
             value: $(params.build-args)
           - name: fail-on-scanned-issues
