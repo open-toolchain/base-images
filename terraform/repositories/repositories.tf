@@ -4,7 +4,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo" {
   initialization {
     owner_id = var.app_repo_github_user
     git_id = "github"
-    type = "clone"
+    type = "link"
     source_repo_url = var.app_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "app-repo" ])
@@ -25,7 +25,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "pipeline_repo" {
   initialization {
     owner_id = var.pipeline_repo_github_user
     git_id = "github"
-    type = "clone"
+    type = "link"
     source_repo_url = var.pipeline_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "pipeline-repo" ])
@@ -46,7 +46,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "tekton_tasks_catalog_repo" 
   initialization {
     owner_id = var.tekton_tasks_catalog_repo_github_user
     git_id = "github"
-    type = "clone"
+    type = "link"
     source_repo_url = var.tekton_tasks_catalog_repo
     private_repo = true
     repo_name = join("-", [ var.repositories_prefix, "tasks-repo" ])
