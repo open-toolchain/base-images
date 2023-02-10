@@ -129,3 +129,48 @@ variable "definitions_branch" {
   description = "The name of the default branch in the `tekton_tasks_catalog_repo` repository."
   default     = "master"
 }
+
+variable "app_repo_github_user" {
+  type        = string
+  description = "The name of the github user for `app_repo` repository."
+}
+
+variable "app_repo_user_id" {
+  type        = string
+  description = "The name of the user for `app_repo` repository."
+}
+
+variable "app_repo_auth_token" {
+  type        = string
+  description = "The auth token for the github `app_repo_github_user` user."
+}
+
+variable "pipeline_repo_github_user" {
+  type        = string
+  description = "The name of the github user for `pipeline_repo` repository."
+}
+
+variable "pipeline_repo_user_id" {
+  type        = string
+  description = "The name of the user for `pipeline_repo` repository."
+}
+
+variable "pipeline_repo_auth_token" {
+  type        = string
+  description = "The auth token for the github `pipeline_repo_github_user` user."
+}
+
+variable "tekton_tasks_catalog_repo_github_user" {
+  type        = string
+  description = "The name of the github user for `tekton_tasks_catalog_repo` repository."
+}
+
+variable "tekton_tasks_catalog_repo_user_id" {
+  type        = string
+  description = "The name of the user for `tekton_tasks_catalog_repo` repository."
+}
+
+variable "tekton_tasks_catalog_repo_auth_token" {
+  type        = string
+  description = "The auth token for the github `tekton_tasks_catalog_repo_github_user` user."
+}

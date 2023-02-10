@@ -9,15 +9,25 @@ resource "ibm_cd_toolchain" "toolchain_instance" {
 }
 
 module "repositories" {
-  source                          = "./repositories"
-  toolchain_id                    = ibm_cd_toolchain.toolchain_instance.id
-  resource_group                  = data.ibm_resource_group.resource_group.id  
-  ibmcloud_api_key                = var.ibmcloud_api_key
-  region                          = var.region  
-  app_repo                        = var.app_repo
-  pipeline_repo                   = var.pipeline_repo
-  tekton_tasks_catalog_repo       = var.tekton_tasks_catalog_repo
-  repositories_prefix             = var.app_name
+  source                                = "./repositories"
+  toolchain_id                          = ibm_cd_toolchain.toolchain_instance.id
+  resource_group                        = data.ibm_resource_group.resource_group.id  
+  ibmcloud_api_key                      = var.ibmcloud_api_key
+  region                                = var.region  
+  app_repo                              = var.app_repo
+  app_repo_github_user                  = var.app_repo_github_user
+  app_repo_user_id                      = var.app_repo_user_id
+  app_repo_auth_token                   = var.app_repo_auth_token
+  pipeline_repo                         = var.pipeline_repo
+  pipeline_repo_github_user             = var.pipeline_repo_github_user
+  pipeline_repo_user_id                 = var.pipeline_repo_user_id
+  pipeline_repo_auth_token              = var.pipeline_repo_auth_token
+  tekton_tasks_catalog_repo             = var.tekton_tasks_catalog_repo
+  tekton_tasks_catalog_repo_github_user = var.tekton_tasks_catalog_repo_github_user
+  tekton_tasks_catalog_repo_user_id     = var.tekton_tasks_catalog_repo_user_id
+  tekton_tasks_catalog_repo_auth_token  = var.tekton_tasks_catalog_repo_auth_token  
+  repositories_prefix                   = var.app_name
+  
 }
 
 resource "ibm_cd_toolchain_tool_pipeline" "ci_pipeline" {

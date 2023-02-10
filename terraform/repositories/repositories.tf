@@ -10,8 +10,8 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo" {
     auto_init = false
   }  
   parameters {
-    toolchain_issues_enabled = true
-    enable_traceability = true
+    toolchain_issues_enabled = false
+    enable_traceability = false
     integration_owner = var.app_repo_user_id
     auth_type = "pat"
     api_token = var.app_repo_auth_token
@@ -59,13 +59,13 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "tekton_tasks_catalog_repo" 
 }
 
 output "app_repo_url" {
-  value = ibm_cd_toolchain_tool_hostedgit.app_repo.parameters[0].repo_url
+  value = ibm_cd_toolchain_tool_githubconsolidated.app_repo.parameters[0].repo_url
 }
 
 output "pipeline_repo_url" {
-  value = ibm_cd_toolchain_tool_hostedgit.pipeline_repo.parameters[0].repo_url
+  value = ibm_cd_toolchain_tool_githubconsolidated.pipeline_repo.parameters[0].repo_url
 }
 
 output "tekton_tasks_catalog_repo_url" {
-  value = ibm_cd_toolchain_tool_hostedgit.tekton_tasks_catalog_repo.parameters[0].repo_url
+  value = ibm_cd_toolchain_tool_githubconsolidated.tekton_tasks_catalog_repo.parameters[0].repo_url
 }
