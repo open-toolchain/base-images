@@ -106,15 +106,9 @@ variable "app_repo_branch" {
   default     = "main"
 }
 
-variable "pipeline_repo" {
-  type        = string
-  description = "Repository url for the repository containing pipeline source code."
-  default     = "https://us-south.git.cloud.ibm.com/open-toolchain/simple-helm-toolchain.git"
-}
-
 variable "pipeline_repo_branch" {
   type        = string
-  description = "The name of the default branch in the `pipeline_repo` repository."
+  description = "The name of the default branch in the `app_repo` repository for tekton pipeline yamls"
   default     = "main"
 }
 
@@ -143,21 +137,6 @@ variable "app_repo_user_id" {
 variable "app_repo_auth_token" {
   type        = string
   description = "The auth token for the github `app_repo_github_user` user."
-}
-
-variable "pipeline_repo_github_user" {
-  type        = string
-  description = "The name of the github user for `pipeline_repo` repository."
-}
-
-variable "pipeline_repo_user_id" {
-  type        = string
-  description = "The name of the user for `pipeline_repo` repository."
-}
-
-variable "pipeline_repo_auth_token" {
-  type        = string
-  description = "The auth token for the github `pipeline_repo_github_user` user."
 }
 
 variable "tekton_tasks_catalog_repo_github_user" {

@@ -14,7 +14,6 @@ app_image_name                  = "some name for the application docker image th
 /* Variables for Module "Repositories"               */
 /*****************************************************/
 app_repo                        = "repository url for application repository"
-pipeline_repo                   = "repository url for the pipeline repository"
 tekton_tasks_catalog_repo       = "repository url for the tekton tasks catalog repository"
 
 /*****************************************************/

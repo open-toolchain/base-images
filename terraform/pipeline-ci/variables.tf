@@ -43,9 +43,6 @@ variable "app_repo" {
 variable "app_repo_branch" {
 }
 
-variable "pipeline_repo" {
-}
-
 variable "pipeline_repo_branch" {
 }
 

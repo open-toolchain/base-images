@@ -69,7 +69,6 @@ Run `terraform destroy` to clean up and destroy all the resources created for th
 | registry_region | Region of the Container Registry where the application container image will be stored | `string` | true |
 | kp_name | Name of the Key Protect Instance where the IBM Cloud API Key to be used within the CI/PR Pipeline is stored | `string` | true |
 | app_repo | IBM Cloud Hosted GIT Repository where the application source code resides. Default behavior of the template is to clone this repository from this [source application repository](https://us-south.git.cloud.ibm.com/open-toolchain/hello-helm.git) | `string` | false |
-| pipeline_repo | IBM Cloud Hosted GIT Repository where the tekton pipeline  code resides. Default behavior of the template is to clone this repository from this [source pipeline repository](https://us-south.git.cloud.ibm.com/open-toolchain/simple-helm-toolchain.git) | `string` | false |
 | tekton_tasks_catalog_repo | IBM Cloud Hosted GIT Repository where the common tekton tasks resides. Default behavior of the template is to clone this repository from this [common tekton tasks repository](https://us-south.git.cloud.ibm.com/open-toolchain/tekton-catalog.git) | `string` | false |
 
 ## Outputs

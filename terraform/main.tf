@@ -18,10 +18,6 @@ module "repositories" {
   app_repo_github_user                  = var.app_repo_github_user
   app_repo_user_id                      = var.app_repo_user_id
   app_repo_auth_token                   = var.app_repo_auth_token
-  pipeline_repo                         = var.pipeline_repo
-  pipeline_repo_github_user             = var.pipeline_repo_github_user
-  pipeline_repo_user_id                 = var.pipeline_repo_user_id
-  pipeline_repo_auth_token              = var.pipeline_repo_auth_token
   tekton_tasks_catalog_repo             = var.tekton_tasks_catalog_repo
   tekton_tasks_catalog_repo_github_user = var.tekton_tasks_catalog_repo_github_user
   tekton_tasks_catalog_repo_user_id     = var.tekton_tasks_catalog_repo_user_id
@@ -55,7 +51,6 @@ module "pipeline-ci" {
   commons_hosted_region     = var.commons_hosted_region
   app_repo                  = module.repositories.app_repo_url 
   app_repo_branch           = var.app_repo_branch
-  pipeline_repo             = module.repositories.pipeline_repo_url
   pipeline_repo_branch      = var.pipeline_repo_branch
   tekton_tasks_catalog_repo = module.repositories.tekton_tasks_catalog_repo_url
   definitions_branch        = var.definitions_branch
@@ -67,24 +62,6 @@ resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
   parameters {
     name = "pr-pipeline"
   }
-}
-
-module "pipeline-pr" {
-  source                    = "./pipeline-pr"
-  depends_on                = [ module.repositories ]
-  ibmcloud_api_key          = var.ibmcloud_api_key
-  ibmcloud_api              = var.ibmcloud_api
-  region                    = var.region  
-  pipeline_id               = split("/", ibm_cd_toolchain_tool_pipeline.pr_pipeline.id)[1]
-  resource_group            = var.resource_group
-  app_name                  = var.app_name
-  app_repo                  = module.repositories.app_repo_url 
-  app_repo_branch           = var.app_repo_branch
-  pipeline_repo             = module.repositories.pipeline_repo_url
-  pipeline_repo_branch      = var.pipeline_repo_branch
-  tekton_tasks_catalog_repo = module.repositories.tekton_tasks_catalog_repo_url  
-  definitions_branch        = var.definitions_branch
-  kp_integration_name       = module.integrations.keyprotect_integration_name
 }
 
 module "services" {

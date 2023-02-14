@@ -25,11 +25,6 @@ variable "app_repo_branch" {
 variable "ibmcloud_api" {
 }
 
-variable "pipeline_repo" {
-    type        = string
-    description = "The repository url containing pipeline definitions for Simple Helm Toolchain."
-}
-
 variable "pipeline_repo_branch" {
 }
 
