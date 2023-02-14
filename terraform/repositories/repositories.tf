@@ -5,7 +5,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "app_repo" {
     owner_id = var.app_repo_github_user
     git_id = "github"
     type = "link"
-    source_repo_url = var.app_repo
+    repo_url = var.app_repo
     auto_init = false
   }  
   parameters {
@@ -24,7 +24,7 @@ resource "ibm_cd_toolchain_tool_githubconsolidated" "tekton_tasks_catalog_repo" 
     owner_id = var.tekton_tasks_catalog_repo_github_user
     git_id = "github"
     type = "link"
-    source_repo_url = var.tekton_tasks_catalog_repo
+    repo_url = var.tekton_tasks_catalog_repo
     auto_init = false
   }
   parameters {

@@ -57,13 +57,6 @@ module "pipeline-ci" {
   kp_integration_name       = module.integrations.keyprotect_integration_name
 }
 
-resource "ibm_cd_toolchain_tool_pipeline" "pr_pipeline" {
-  toolchain_id = ibm_cd_toolchain.toolchain_instance.id
-  parameters {
-    name = "pr-pipeline"
-  }
-}
-
 module "services" {
   source                      = "./services"
   kp_name                     = var.kp_name
