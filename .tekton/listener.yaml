@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: trigger-template-simple-helm
+  name: trigger-template-base-image
 spec:
   params:
     - name: ibmcloud-api
@@ -63,7 +63,7 @@ spec:
     - apiVersion: v1
       kind: PersistentVolumeClaim
       metadata:
-        name: simple-helm-$(uid)-pvc
+        name: base-image-$(uid)-pvc
       spec:
         resources:
           requests:
@@ -74,10 +74,10 @@ spec:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        name: simple-helm-$(uid)
+        name: base-image-$(uid)
       spec:
         pipelineRef:
-          name: simple-helm-pipeline
+          name: base-image-pipeline
         params:
           - name: ibmcloud-api
             value: $(params.ibmcloud-api)
@@ -128,7 +128,7 @@ spec:
         workspaces:
           - name: pipeline-ws
             persistentVolumeClaim:
-              claimName: simple-helm-$(uid)-pvc
+              claimName: base-image-$(uid)-pvc
 ---
 apiVersion: tekton.dev/v1beta1
 kind: TriggerBinding
@@ -154,4 +154,4 @@ spec:
     - binding:
         name: trigger-binding-manual
       template:
-        name: trigger-template-simple-helm
+        name: trigger-template-base-image

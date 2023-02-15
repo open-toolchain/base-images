@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: simple-helm-pipeline
+  name: base-image-pipeline
 spec:
   params:
     - name: ibmcloud-api
