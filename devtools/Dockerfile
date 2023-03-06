@@ -43,7 +43,7 @@ RUN wget --quiet --output-document=/usr/local/bin/kubectl https://storage.google
     && chmod +x /usr/local/bin/kubectl
 
 # Install Helm3
-ARG HELM3_VERSION='v3.11.0'
+ARG HELM3_VERSION='v3.11.1'
 RUN mkdir -p /tmp/helm_install \
     && wget --quiet https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -O get_helm.sh \
     && chmod 700 get_helm.sh \
@@ -57,21 +57,21 @@ RUN wget --quiet --no-check-certificate https://github.com/stedolan/jq/releases/
     && chmod +x /usr/bin/jq \
     && rm -f /tmp/jq-linux64
 
-ENV IBMCLOUD_VERSION='2.14.0'
+ENV IBMCLOUD_VERSION='2.15.0'
 RUN wget --quiet -O /tmp/Bluemix_CLI.tar.gz https://download.clis.cloud.ibm.com/ibm-cloud-cli/${IBMCLOUD_VERSION}/IBM_Cloud_CLI_${IBMCLOUD_VERSION}_amd64.tar.gz \
     && tar -xzvf /tmp/Bluemix_CLI.tar.gz -C /tmp \
     && /tmp/Bluemix_CLI/install_bluemix_cli \
     && rm -rf /tmp/Bluemix_CLI* \
     && ibmcloud config --check-version false
 
-RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.489 \
+RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.498 \
     && ibmcloud plugin install container-registry -r 'IBM Cloud' -v 1.0.6 \
-    && ibmcloud plugin install cloud-functions -r 'IBM Cloud' -v 1.0.63 \
+    && ibmcloud plugin install cloud-functions -r 'IBM Cloud' -v 1.0.64 \
     && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.7 \
     && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.1 \
     && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.9 \
-    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.1 \
-    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.40.7 \
+    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.4 \
+    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.41.3 \
     && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 0.1.25
 
 RUN ln -s /usr/local/ibmcloud/bin/ibmcloud /usr/local/bin/ic
@@ -92,13 +92,13 @@ RUN apt-get update -qq && apt-get -y -qq install gpg lsb-release \
     && rm -rf /var/lib/apt/lists
 
 # Install yq v4.x
-ENV YQ4_VERSION=v4.30.8
+ENV YQ4_VERSION=v4.31.2
 RUN wget --quiet -O yq4_linux_amd64 https://github.com/mikefarah/yq/releases/download/${YQ4_VERSION}/yq_linux_amd64 \
     && mv yq4_linux_amd64 /usr/bin/yq \
     && chmod +x /usr/bin/yq
 
 # Install buildctl
-ENV BUILDKIT_VERSION=v0.11.2
+ENV BUILDKIT_VERSION=v0.11.4
 RUN wget --quiet -O buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz https://github.com/moby/buildkit/releases/download/${BUILDKIT_VERSION}/buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz \
     && tar zxvf buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz --strip-components 1 -C /usr/bin bin/buildctl \
     && rm -f buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz
