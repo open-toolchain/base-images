@@ -43,7 +43,7 @@ RUN wget --quiet --output-document=/usr/local/bin/kubectl https://storage.google
     && chmod +x /usr/local/bin/kubectl
 
 # Install Helm3
-ARG HELM3_VERSION='v3.11.1'
+ARG HELM3_VERSION='v3.11.2'
 RUN mkdir -p /tmp/helm_install \
     && wget --quiet https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get -O get_helm.sh \
     && chmod 700 get_helm.sh \
@@ -70,7 +70,7 @@ RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.498 \
     && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.7 \
     && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.1 \
     && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.9 \
-    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.4 \
+    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.5 \
     && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.41.3 \
     && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 0.1.25
 
@@ -92,7 +92,7 @@ RUN apt-get update -qq && apt-get -y -qq install gpg lsb-release \
     && rm -rf /var/lib/apt/lists
 
 # Install yq v4.x
-ENV YQ4_VERSION=v4.31.2
+ENV YQ4_VERSION=v4.32.2
 RUN wget --quiet -O yq4_linux_amd64 https://github.com/mikefarah/yq/releases/download/${YQ4_VERSION}/yq_linux_amd64 \
     && mv yq4_linux_amd64 /usr/bin/yq \
     && chmod +x /usr/bin/yq
