@@ -66,12 +66,12 @@ RUN wget --quiet -O /tmp/Bluemix_CLI.tar.gz https://download.clis.cloud.ibm.com/
 
 RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.498 \
     && ibmcloud plugin install container-registry -r 'IBM Cloud' -v 1.0.6 \
-    && ibmcloud plugin install cloud-functions -r 'IBM Cloud' -v 1.0.64 \
+    && ibmcloud plugin install cloud-functions -r 'IBM Cloud' -v 1.0.66 \
     && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.7 \
     && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.1 \
-    && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.9 \
-    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.5 \
-    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.41.3 \
+    && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.11 \
+    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.6 \
+    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.42.0 \
     && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 0.1.25
 
 RUN ln -s /usr/local/ibmcloud/bin/ibmcloud /usr/local/bin/ic
