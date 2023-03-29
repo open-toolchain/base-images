@@ -6,7 +6,7 @@
 # Use, duplication or disclosure restricted by GSA ADP Schedule
 # Contract with IBM Corp.
 ##########################################################################################
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN true
@@ -67,11 +67,11 @@ RUN wget --quiet -O /tmp/Bluemix_CLI.tar.gz https://download.clis.cloud.ibm.com/
 RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.498 \
     && ibmcloud plugin install container-registry -r 'IBM Cloud' -v 1.0.6 \
     && ibmcloud plugin install cloud-functions -r 'IBM Cloud' -v 1.0.66 \
-    && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.7 \
-    && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.1 \
+    && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.8 \
+    && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.2 \
     && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.11 \
-    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.1.6 \
-    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.42.0 \
+    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.2.0 \
+    && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.43.0 \
     && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 0.1.25
 
 RUN ln -s /usr/local/ibmcloud/bin/ibmcloud /usr/local/bin/ic
@@ -92,13 +92,13 @@ RUN apt-get update -qq && apt-get -y -qq install gpg lsb-release \
     && rm -rf /var/lib/apt/lists
 
 # Install yq v4.x
-ENV YQ4_VERSION=v4.32.2
+ENV YQ4_VERSION=v4.33.1
 RUN wget --quiet -O yq4_linux_amd64 https://github.com/mikefarah/yq/releases/download/${YQ4_VERSION}/yq_linux_amd64 \
     && mv yq4_linux_amd64 /usr/bin/yq \
     && chmod +x /usr/bin/yq
 
 # Install buildctl
-ENV BUILDKIT_VERSION=v0.11.4
+ENV BUILDKIT_VERSION=v0.11.5
 RUN wget --quiet -O buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz https://github.com/moby/buildkit/releases/download/${BUILDKIT_VERSION}/buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz \
     && tar zxvf buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz --strip-components 1 -C /usr/bin bin/buildctl \
     && rm -f buildkit-${BUILDKIT_VERSION}.linux-amd64.tar.gz
