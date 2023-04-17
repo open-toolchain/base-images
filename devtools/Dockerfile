@@ -70,9 +70,9 @@ RUN ibmcloud plugin install container-service -r 'IBM Cloud' -v 1.0.506 \
     && ibmcloud plugin install schematics -r 'IBM Cloud' -v 1.12.9 \
     && ibmcloud plugin install doi -r 'IBM Cloud' -v 0.4.2 \
     && ibmcloud plugin install cis -r 'IBM Cloud' -v 1.14.11 \
-    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.2.2 \
+    && ibmcloud plugin install cra -r 'IBM Cloud' -v 1.3.0 \
     && ibmcloud plugin install code-engine -r 'IBM Cloud' -v 1.43.3 \
-    && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 0.1.25
+    && ibmcloud plugin install secrets-manager -r 'IBM Cloud' -v 2.0.0
 
 RUN ln -s /usr/local/ibmcloud/bin/ibmcloud /usr/local/bin/ic
 
